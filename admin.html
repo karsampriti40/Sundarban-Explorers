@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Sundarban Explorars</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🔐 Admin Dashboard</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="admin.html">Admin</a>
+      <a href="logout.html">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Recent Bookings</h2>
+      <table border="1" cellpadding="10" style="background:#fff;" id="bookingTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Booking ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Package</th>
+            <th>Add-ons</th>
+            <th>Total (₹)</th>
+            <th>Payment</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bookingBody">
+          <tr><td colspan="11" style="text-align:center;">Loading bookings...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section style="margin-top: 40px;">
+      <h2>🛍️ Shop Orders</h2>
+      <table border="1" cellpadding="10" style="background:#fff;width:100%;">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Items</th>
+            <th>Total (₹)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="shopOrdersBody">
+          <tr><td colspan="7" style="text-align:center;">No orders found.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sundarban Explorars. Admin Panel</p>
+  </footer>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // --- BOOKINGS SECTION ---
+    const bookingBody = document.getElementById("bookingBody");
+    const confirmedBookings = JSON.parse(localStorage.getItem("confirmedBookings")) || [];
+
+    if (confirmedBookings.length === 0) {
+      bookingBody.innerHTML = `<tr><td colspan="11">No bookings found</td></tr>`;
+    } else {
+      bookingBody.innerHTML = "";
+      confirmedBookings.forEach((b, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${b.id || "N/A"}</td>
+          <td>${b.name}</td>
+          <td>${b.email}</td>
+          <td>${b.phone}</td>
+          <td>${b.date}</td>
+          <td>${b.package}</td>
+          <td>${b.addOns || "None"}</td>
+          <td>${b.total}</td>
+          <td>${b.payment}</td>
+          <td><button class="delete-btn" data-index="${index}">Delete</button></td>
+        `;
+        bookingBody.appendChild(row);
+      });
+    }
+
+    bookingBody.addEventListener("click", function (e) {
+      if (e.target.classList.contains("delete-btn")) {
+        const index = e.target.getAttribute("data-index");
+        if (confirm("Are you sure you want to delete this booking?")) {
+          confirmedBookings.splice(index, 1);
+          localStorage.setItem("confirmedBookings", JSON.stringify(confirmedBookings));
+          location.reload();
+        }
+      }
+    });
+
+    // --- SHOP ORDERS SECTION ---
+    const shopOrdersBody = document.getElementById("shopOrdersBody");
+    const shopOrders = JSON.parse(localStorage.getItem("shopOrders")) || [];
+
+    if (shopOrders.length === 0) {
+      shopOrdersBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No orders found.</td></tr>`;
+    } else {
+      shopOrdersBody.innerHTML = "";
+      shopOrders.forEach((order, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${order.name}</td>
+          <td>${order.email}</td>
+          <td>${order.phone}</td>
+          <td>${(order.items || []).map(i => i.name).join(", ")}</td>
+          <td>${order.total}</td>
+          <td>${order.date}</td>
+        `;
+        shopOrdersBody.appendChild(row);
+      });
+    }
+  });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sundarban Explorars - Home</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== General Styles ===== */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: #222;
+      background-color: #f9f9f9;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    /* ===== Hero Section with Image ===== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      background: url('images/sundarban.jpg') no-repeat center center/cover;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 0;
+    }
+    .hero-content {
+      z-index: 1;
+      max-width: 800px;
+      padding: 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .hero a {
+      background: #ffcc00;
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .hero a:hover {
+      background: #ffaa00;
+    }
+
+    /* ===== Features Section ===== */
+    .features {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+    }
+    .features h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .feature {
+      background: #f4f4f4;
+      border-radius: 15px;
+      padding: 20px;
+      transition: 0.3s;
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+      background: #fff8dc;
+    }
+    .feature img {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+
+    /* ===== Testimonials ===== */
+    .testimonials {
+      background: linear-gradient(to right, #004d00, #007700);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .testimonial {
+      max-width: 600px;
+      margin: 20px auto;
+      font-style: italic;
+    }
+
+    /* ===== CTA Section ===== */
+    .cta {
+      text-align: center;
+      padding: 60px 20px;
+      background: #ffe680;
+    }
+    .cta h2 {
+      margin-bottom: 20px;
+    }
+    .cta a {
+      background: #007700;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .cta a:hover {
+      background: #005500;
+    }
+
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== Header ===== -->
+  <header>
+    <h1>🌿 Sundarban Explorars</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="packages.html">Packages</a>
+      <a href="booking.html">Book</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- ===== Hero Section ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Discover the Untamed Beauty of the Sundarbans</h1>
+      <p>Embark on an eco-adventure through the world’s largest mangrove forest. Experience wildlife, culture, and peace in one unforgettable journey.</p>
+      <a href="booking.html">Book Your Trip Now</a>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="features">
+    <h2>Why Travelers Choose Us</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <img src="images/icons/eco-tourism.png" alt="Eco Tourism">
+        <h3>Eco-Friendly Tourism</h3>
+        <p>We ensure minimal environmental impact while exploring the pristine mangrove ecosystems.</p>
+      </div>
+      <div class="feature">
+        <img src="images/icons/guide.png" alt="Certified Guides">
+        <h3>Certified Local Guides</h3>
+        <p>Travel with expert guides who know the heart of the Sundarbans and its hidden wonders.</p>
+      </div>
+      <div class="feature">
+        <img src="images/icons/wildlife.png" alt="Wildlife">
+        <h3>Thrilling Wildlife Encounters</h3>
+        <p>Spot Royal Bengal Tigers, saltwater crocodiles, and rare bird species in their natural habitat.</p>
+      </div>
+      <div class="feature">
+        <img src="images/icons/community.png" alt="Local Community">
+        <h3>Empowering Communities</h3>
+        <p>Your journey supports local families, artists, and sustainable village tourism.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials ===== -->
+  <section class="testimonials">
+    <h2>What Our Travelers Say</h2>
+    <div class="testimonial">“A once-in-a-lifetime experience! The jungle safari and river cruise were simply magical.” – <strong>Riya D.</strong></div>
+    <div class="testimonial">“Loved the eco-conscious approach and the warmth of the local guides.” – <strong>Mark T.</strong></div>
+    <div class="testimonial">“Perfect balance of adventure and relaxation. Highly recommend Sundarban Explorars!” – <strong>Ananya S.</strong></div>
+  </section>
+
+  <!-- ===== CTA Section ===== -->
+  <section class="cta">
+    <h2>Ready to Explore the Wild?</h2>
+    <a href="packages.html">View Packages</a>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>&copy; 2025 Sundarban Explorars. Designed with ❤️ for nature and innovation.</p>
+  </footer>
+</body>
+</html>

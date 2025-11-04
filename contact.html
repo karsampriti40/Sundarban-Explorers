@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - Sundarban Explorars</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: "Poppins", sans-serif; margin: 0; background: #f9f9f9; }
+    header { background: #004d00; color: white; text-align: center; padding: 15px; }
+    nav a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; }
+    nav a:hover { color: #ffcc00; }
+    form {
+      background: white;
+      padding: 20px;
+      max-width: 600px;
+      margin: 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea {
+      width: 100%; padding: 10px; margin-top: 5px;
+      border-radius: 5px; border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #007700;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background: #005500; }
+
+    /* Feedback List */
+    #feedbackList {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .feedback-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .feedback-item:last-child { border-bottom: none; }
+    .feedback-item h4 { margin: 0; color: #004d00; }
+    .feedback-item p { margin: 5px 0; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>📞 Contact Sundarban Explorers</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="packages.html">Packages</a>
+      <a href="booking.html">Book</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="contactForm">
+      <h2>Send Us a Message</h2>
+
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="message">Your Message:</label>
+      <textarea id="message" rows="5" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <!-- Feedback Display Section -->
+    <section id="feedbackList">
+      <h3>Recent Feedback</h3>
+      <div id="feedbackContainer"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sundarban Explorars. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const feedbackContainer = document.getElementById('feedbackContainer');
+
+    // Load saved feedback from localStorage
+    document.addEventListener("DOMContentLoaded", showFeedback);
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const feedback = { name, email, message, date: new Date().toLocaleString() };
+
+      // Save to localStorage
+      let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+      feedbacks.push(feedback);
+      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+      alert('Message sent successfully!');
+      form.reset();
+      showFeedback();
+    });
+
+    function showFeedback() {
+      const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+      feedbackContainer.innerHTML = feedbacks.map(f => `
+        <div class="feedback-item">
+          <h4>${f.name} <small>(${f.email})</small></h4>
+          <p>${f.message}</p>
+          <small>🕓 ${f.date}</small>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

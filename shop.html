@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop - Sundarban Explorars</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🛍️ Sundarban Souvenir Shop</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="packages.html">Packages</a>
+      <a href="booking.html">Book</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Buy Unique Sundarban Souvenirs</h2>
+    <div class="product-grid">
+
+      <div class="product">
+        <img src="images/tiger-statue.jpg" alt="Tiger Statue">
+        <h3>Royal Bengal Tiger Statue</h3>
+        <p>₹500</p>
+        <button onclick="addToCart('Royal Bengal Tiger Statue', 500)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/sundarban-map.jpg" alt="Sundarban Map">
+        <h3>Sundarban Tourist Map</h3>
+        <p>₹150</p>
+        <button onclick="addToCart('Sundarban Tourist Map', 150)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/handicraft-bag.jpg" alt="Handicraft Bag">
+        <h3>Local Handicraft Bag</h3>
+        <p>₹350</p>
+        <button onclick="addToCart('Local Handicraft Bag', 350)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/mangrove-honey.jpg" alt="Mangrove Honey">
+        <h3>Organic Mangrove Honey (250ml)</h3>
+        <p>₹275</p>
+        <button onclick="addToCart('Organic Mangrove Honey', 275)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/tiger-painting.jpg" alt="Tiger Art">
+        <h3>Watercolor Tiger Art</h3>
+        <p>₹799</p>
+        <button onclick="addToCart('Watercolor Tiger Art', 799)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/fridge-magnet.jpg" alt="Fridge Magnet">
+        <h3>Fridge Magnet</h3>
+        <p>₹199</p>
+        <button onclick="addToCart('Fridge Magnet', 199)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/tshirt.jpg" alt="Souvenir T-Shirt">
+        <h3>Sundarban T-Shirt</h3>
+        <p>₹499</p>
+        <button onclick="addToCart('Sundarban T-Shirt', 499)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/tiger-sculpture.jpg" alt="Tiger Sculpture">
+        <h3>Tiger Sculpture</h3>
+        <p>₹650</p>
+        <button onclick="addToCart('Tiger Sculpture', 650)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/craft-items.jpg" alt="Mini Bamboo Craft Items">
+        <h3>Mini Bamboo Craft Items</h3>
+        <p>₹399</p>
+        <button onclick="addToCart('Mini Bamboo Craft Items', 399)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/candles.jpg" alt="Organic Candles">
+        <h3>Organic Candles</h3>
+        <p>₹600</p>
+        <button onclick="addToCart('Organic Candles', 600)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/shell-bowls.jpg" alt="Coconut Shell Bowls">
+        <h3>Coconut Shell Bowls</h3>
+        <p>₹375</p>
+        <button onclick="addToCart('Coconut Shell Bowls', 375)">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="images/jewellery.jpg" alt="Handmade Jewellery">
+        <h3>Handmade Jewellery</h3>
+        <p>₹400</p>
+        <button onclick="addToCart('Handmade Jewellery', 400)">Add to Cart</button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sundarban Explorars. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} added to cart!`);
+    }
+  </script>
+</body>
+</html>

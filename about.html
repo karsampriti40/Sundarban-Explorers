@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - Sundarban Explorars</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7f6;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background-color: #145a32;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 500;
+    }
+
+    nav a:hover { text-decoration: underline; }
+
+    /* 🌊 HERO SECTION WITH VIDEO */
+    .hero {
+      position: relative;
+      height: 90vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(60%);
+    }
+
+    .hero-content {
+      z-index: 2;
+      animation: fadeDown 1.5s ease-in-out;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5em;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .hero-content p {
+      font-size: 1.3em;
+      margin-top: 10px;
+      letter-spacing: 1px;
+      animation: fadeUp 2s ease-in-out;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTION BASE */
+    section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* About & Mission */
+    .about-section {
+      padding: 60px 10%;
+      background: white;
+    }
+    .about-section h2 {
+      color: #145a32;
+      border-left: 5px solid #145a32;
+      padding-left: 10px;
+    }
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .about-card {
+      flex: 1 1 300px;
+      background: #f0f9f4;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .about-card:hover { transform: translateY(-5px); }
+    .about-card img {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+
+    /* Impact */
+    .impact {
+      background-color: #145a32;
+      color: white;
+      text-align: center;
+      padding: 50px 10%;
+    }
+    .impact h2 { margin-bottom: 30px; }
+    .impact-cards {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .impact-card {
+      background: #1e8449;
+      padding: 20px;
+      border-radius: 10px;
+      width: 220px;
+      font-size: 1.1em;
+    }
+
+    /* Team */
+    .team {
+      background: white;
+      padding: 60px 10%;
+      text-align: center;
+    }
+    .team h2 { color: #145a32; }
+    .team-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .member {
+      background: #f4f9f4;
+      border-radius: 12px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .member:hover { transform: scale(1.05); }
+    .member img {
+      width: 100%;
+      border-radius: 12px;
+      height: 220px;
+      object-fit: cover;
+    }
+    .member h3 { margin: 10px 0 5px; color: #145a32; }
+    .member p { font-size: 0.9em; color: #555; }
+
+    /* Testimonials */
+    .testimonials {
+      background: #eafaf1;
+      padding: 60px 10%;
+      text-align: center;
+    }
+    .testimonials h2 { color: #145a32; margin-bottom: 40px; }
+    .testimonial {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-style: italic;
+      color: #444;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 1s ease;
+    }
+    .testimonial.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .testimonial span {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #145a32;
+    }
+
+    footer {
+      background: #145a32;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid, .impact-cards, .team-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-content h1 { font-size: 2em; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🌿 About Sundarban Explorars</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html" style="text-decoration: underline;">About</a>
+      <a href="packages.html">Packages</a>
+      <a href="booking.html">Book</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- 🎥 Hero Video Section -->
+  <section class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="videos/sundarban-river.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content">
+      <h1>Discover the Heart of Sundarbans</h1>
+      <p>Adventure • Conservation • Culture • Community</p>
+    </div>
+  </section>
+
+  <!-- 🧭 About Us -->
+  <section class="about-section">
+    <h2>Who We Are</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <img src="images/boat-icon.png" alt="Adventure Icon">
+        <p><strong>Sundarban Explorars</strong> is a team of certified guides, naturalists, and travel enthusiasts providing authentic Sundarban tours since 2010.</p>
+      </div>
+      <div class="about-card">
+        <img src="images/eco-icon.png" alt="Eco Icon">
+        <p>We combine <strong>eco-tourism</strong> with local empowerment — every tour directly benefits the community through jobs and fair-trade souvenirs.</p>
+      </div>
+      <div class="about-card">
+        <img src="images/safety-icon.png" alt="Safety Icon">
+        <p>Your <strong>safety</strong> and satisfaction are our top priorities, with trained boat staff and real-time navigation systems.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌍 Mission Section -->
+  <section class="about-section">
+    <h2>🌿Our Mission</h2>
+    <p>We strive to preserve the fragile heartbeat of the Sundarbans — its forests, rivers, and wildlife — while empowering travelers to experience its magic responsibly.
+Through eco-conscious adventures, community partnerships, and sustainable tourism, our mission is to ensure that every journey we create not only leaves memories behind — but also a positive footprint on nature and local lives.</p>
+  </section>
+
+  <!-- 🌎 Our Impact -->
+  <section class="impact">
+    <h2>Our Positive Impact</h2>
+    <div class="impact-cards">
+      <div class="impact-card">🌱 10,000+ Mangroves Planted</div>
+      <div class="impact-card">🐯 5 Wildlife Awareness Drives</div>
+      <div class="impact-card">👨‍👩‍👧 150+ Local Families Supported</div>
+      <div class="impact-card">🌊 300+ Eco-Tours Conducted</div>
+    </div>
+  </section>
+
+  <!-- 👩‍✈️ Team Section -->
+  <section class="team">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+      <div class="member">
+        <img src="images/team1.jpg" alt="Team Member">
+        <h3>Rohit Das</h3>
+        <p>Founder & Chief Explorer</p>
+      </div>
+      <div class="member">
+        <img src="images/team2.jpg" alt="Team Member">
+        <h3>Sampriti Kar</h3>
+        <p>Wildlife Expert</p>
+      </div>
+      <div class="member">
+        <img src="images/team3.jpg" alt="Team Member">
+        <h3>Ria Samanta</h3>
+        <p>Customer Experience Manager</p>
+      </div>
+      <div class="member">
+        <img src="images/team4.jpg" alt="Team Member">
+        <h3>Arjun Ghosh</h3>
+        <p>Operations Head</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💬 Testimonials -->
+  <section class="testimonials">
+    <h2>What Our Travelers Say</h2>
+    <div class="testimonial">
+      “An unforgettable experience! From mangrove safaris to local meals — Sundarban Explorars made our trip magical.”
+      <span>— Ananya Roy, Kolkata</span>
+    </div>
+    <div class="testimonial">
+      “Professional, passionate, and eco-conscious team. I learned so much about tiger conservation!”
+      <span>— David Miller, UK</span>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sundarban Explorars. All rights reserved.</p>
+  </footer>
+
+  <!-- ✨ Scroll Animation Script -->
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+    document.querySelectorAll('.testimonial').forEach(t => observer.observe(t));
+  </script>
+</body>
+</html>

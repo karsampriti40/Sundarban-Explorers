@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart - Sundarban Explorars</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    main { padding: 20px; font-family: Arial, sans-serif; }
+    .cart-item { margin-bottom: 10px; }
+    .btn { background-color: green; color: white; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; }
+    .btn:hover { background-color: darkgreen; }
+    #successMessage { display: none; color: green; font-weight: bold; margin-top: 20px; border: 2px solid green; padding: 10px; border-radius: 10px; background-color: #eaffea; }
+    label { display: block; margin-top: 10px; }
+    input { padding: 6px; width: 250px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛒 Your Cart</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="booking.html">Book</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Items in Your Cart</h2>
+    <p>Total items: <span id="itemCount">0</span></p>
+    <div id="cartItems"></div>
+    <p><strong>Total: ₹<span id="total">0</span></strong></p>
+
+    <hr>
+    <h3>Customer Details</h3>
+    <label>Name: <input type="text" id="name"></label>
+    <label>Email: <input type="email" id="email"></label>
+    <label>Phone: <input type="text" id="phone"></label>
+    <label>Date: <input type="date" id="date"></label>
+
+    <hr>
+    <h3>Payment Method</h3>
+    <select id="paymentMethod">
+      <option value="">-- Choose Payment Method --</option>
+      <option value="Cash">💵 Cash</option>
+      <option value="UPI">📱 UPI</option>
+      <option value="Card">💳 Card</option>
+      <option value="Net Banking">🏦 Net Banking</option>
+    </select>
+
+    <br><br>
+    <button id="clearCart" class="btn">Clear Cart</button>
+    <button id="confirmBuy" class="btn">Confirm Purchase</button>
+
+    <div id="successMessage"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sundarban Explorars. All rights reserved.</p>
+  </footer>
+
+  <script>
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartItems = document.getElementById("cartItems");
+  const totalElem = document.getElementById("total");
+  const itemCount = document.getElementById("itemCount");
+
+  function renderCart() {
+    cartItems.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, i) => {
+      total += item.price;
+      cartItems.innerHTML += `<div class='cart-item'>${i + 1}. ${item.name} - ₹${item.price}</div>`;
+    });
+    totalElem.textContent = total;
+    itemCount.textContent = cart.length;
+  }
+
+  renderCart();
+
+  document.getElementById("clearCart").addEventListener("click", () => {
+    localStorage.removeItem("cart");
+    location.reload();
+  });
+
+  document.getElementById("confirmBuy").addEventListener("click", () => {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const date = document.getElementById("date").value;
+    const payment = document.getElementById("paymentMethod").value;
+
+    if (!name || !email || !phone || !date || !payment) {
+      alert("⚠️ Please fill all details and select payment method.");
+      return;
+    }
+
+    if (cart.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+
+    const total = cart.reduce((sum, i) => sum + i.price, 0);
+
+    // 🕒 Add time together with date
+    const currentDateTime = new Date();
+    const formattedDateTime = `${currentDateTime.toLocaleDateString()} ${currentDateTime.toLocaleTimeString()}`;
+
+    const newOrder = {
+      id: Date.now(),
+      name,
+      email,
+      phone,
+      date: formattedDateTime, // ✅ Full date and time
+      items: cart,
+      total,
+      payment,
+    };
+
+    const shopOrders = JSON.parse(localStorage.getItem("shopOrders")) || [];
+    shopOrders.push(newOrder);
+    localStorage.setItem("shopOrders", JSON.stringify(shopOrders));
+    localStorage.removeItem("cart");
+
+    document.getElementById("successMessage").innerHTML =
+      `✅ Thank you ${name}! Your order has been placed successfully.`;
+    document.getElementById("successMessage").style.display = "block";
+
+    setTimeout(() => {
+      location.href = "shop.html";
+    }, 2000);
+  });
+</script>
+
+</body>
+</html>

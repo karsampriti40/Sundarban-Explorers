@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Your Sundarban Package</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f8f4;
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #006400;
+    }
+    section {
+      margin-top: 25px;
+    }
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: #eef9ee;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    label:hover {
+      background: #d9f7d9;
+    }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .total-box {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+      padding: 10px;
+      background: #eaffea;
+      border-radius: 10px;
+      border: 2px solid green;
+    }
+    .btn {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .btn:hover {
+      background-color: darkgreen;
+    }
+    #successMessage {
+      display: none;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      border: 2px solid green;
+      padding: 12px;
+      margin-top: 20px;
+      border-radius: 10px;
+      background: #eaffea;
+    }
+
+    /* Payment Popup */
+    #paymentPopup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .popup-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .popup-content h3 {
+      margin-bottom: 15px;
+      color: #006400;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>🌴 Book Your Sundarban Adventure</h1>
+
+    <!-- User Info -->
+    <section>
+      <h3>Your Details</h3>
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+      <label for="date">Select Booking Date:</label>
+      <input type="date" id="date" required>
+    </section>
+
+    <!-- Package -->
+    <section>
+      <h3>Choose a Package</h3>
+      <label><input type="radio" name="package" value="2499"> 1-Day River Cruise — ₹2,499</label>
+      <label><input type="radio" name="package" value="4999"> 2-Day Jungle Safari — ₹4,999</label>
+      <label><input type="radio" name="package" value="7499"> 3-Day Nature Retreat — ₹7,499</label>
+    </section>
+
+    <!-- Add-ons -->
+    <section>
+      <h3>Optional Add-ons</h3>
+      <label><input type="checkbox" class="addon-option" value="700"> Evening Bonfire & Folk Dance — ₹700</label>
+      <label><input type="checkbox" class="addon-option" value="1000"> Guided Photography Tour — ₹1,000</label>
+      <label><input type="checkbox" class="addon-option" value="800"> Sunrise Boat Ride — ₹800</label>
+      <label><input type="checkbox" class="addon-option" value="1200"> Candlelight Dinner — ₹1,200</label>
+      <label><input type="checkbox" class="addon-option" value="1500"> Private Cabin Upgrade — ₹1,500</label>
+      <label><input type="checkbox" class="addon-option" value="1200"> Mangrove Kayaking — ₹1,200</label>
+      <label><input type="checkbox" class="addon-option" value="700"> Fishing Experience with Locals — ₹700</label>
+    </section>
+
+    <!-- Total -->
+    <div class="total-box">
+      Total: ₹<span id="total">0</span>
+    </div>
+
+    <div style="text-align:center;">
+      <button id="addToCart" class="btn">Add to Cart</button>
+      <button id="buyNow" class="btn">Buy Now</button>
+    </div>
+
+    <div id="successMessage"></div>
+  </main>
+
+  <!-- Payment Popup -->
+  <div id="paymentPopup">
+    <div class="popup-content">
+      <h3>Select Payment Method</h3>
+      <button id="cashBtn" class="btn">💵 Cash</button>
+      <button id="upiBtn" class="btn">📱 UPI</button>
+      <button id="cardBtn" class="btn">💳 Card</button>
+      <button id="netbankingBtn" class="btn">🏦 Net Banking</button>
+      <br><br>
+      <button id="cancelPopup" class="btn" style="background:red;">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+const packageRadios = document.querySelectorAll('input[name="package"]');
+const addonCheckboxes = document.querySelectorAll('.addon-option');
+const totalSpan = document.getElementById('total');
+const addToCartBtn = document.getElementById('addToCart');
+const buyNowBtn = document.getElementById('buyNow');
+const successMsg = document.getElementById('successMessage');
+const paymentPopup = document.getElementById('paymentPopup');
+
+const cashBtn = document.getElementById('cashBtn');
+const upiBtn = document.getElementById('upiBtn');
+const cardBtn = document.getElementById('cardBtn');
+const netbankingBtn = document.getElementById('netbankingBtn');
+const cancelPopup = document.getElementById('cancelPopup');
+
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+const dateInput = document.getElementById('date');
+
+let basePrice = 0;
+
+// Update total dynamically
+function updateTotal() {
+  const addonTotal = Array.from(addonCheckboxes)
+    .filter(cb => cb.checked)
+    .reduce((sum, cb) => sum + Number(cb.value), 0);
+  totalSpan.textContent = basePrice + addonTotal;
+}
+
+packageRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    basePrice = Number(radio.value);
+    updateTotal();
+  });
+});
+
+addonCheckboxes.forEach(cb => cb.addEventListener('change', updateTotal));
+
+function validateUserInfo() {
+  if (!nameInput.value.trim() || !emailInput.value.trim() || !phoneInput.value.trim() || !dateInput.value) {
+    alert("Please fill in all your details before proceeding.");
+    return false;
+  }
+  if (basePrice === 0) {
+    alert("Please select a package before proceeding.");
+    return false;
+  }
+  return true;
+}
+
+// Add to cart
+addToCartBtn.addEventListener('click', () => {
+  if (!validateUserInfo()) return;
+
+  const selectedAddons = Array.from(addonCheckboxes)
+    .filter(cb => cb.checked)
+    .map(cb => cb.parentElement.textContent.trim());
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push({
+    id: Date.now(),
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    date: dateInput.value,
+    package: document.querySelector('input[name="package"]:checked').parentElement.textContent.trim(),
+    addOns: selectedAddons.join(", "),
+    total: Number(totalSpan.textContent),
+    payment: "Pending"
+  });
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert("✅ Booking added to cart successfully!");
+});
+
+// Buy Now
+buyNowBtn.addEventListener('click', () => {
+  if (!validateUserInfo()) return;
+  paymentPopup.style.display = "flex";
+});
+
+cancelPopup.addEventListener('click', () => {
+  paymentPopup.style.display = "none";
+});
+
+function completePurchase(method) {
+  paymentPopup.style.display = "none";
+  successMsg.style.display = "block";
+  successMsg.innerHTML = `
+    ✅ Booking Confirmed via <strong>${method}</strong>!<br>
+    <strong>${nameInput.value}</strong>, your trip on <strong>${dateInput.value}</strong> is booked.<br>
+    Total Paid: ₹${totalSpan.textContent}.<br>
+    Confirmation sent to: <strong>${emailInput.value}</strong>.
+  `;
+
+  // ✅ Save confirmed booking for admin dashboard
+  const confirmedBookings = JSON.parse(localStorage.getItem("confirmedBookings")) || [];
+  const selectedAddons = Array.from(addonCheckboxes)
+    .filter(cb => cb.checked)
+    .map(cb => cb.parentElement.textContent.trim());
+
+  confirmedBookings.push({
+    id: Date.now(),
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    date: dateInput.value,
+    package: document.querySelector('input[name="package"]:checked').parentElement.textContent.trim(),
+    addOns: selectedAddons.join(", "),
+    total: Number(totalSpan.textContent),
+    payment: method
+  });
+
+  localStorage.setItem("confirmedBookings", JSON.stringify(confirmedBookings));
+}
+
+cashBtn.addEventListener('click', () => completePurchase("Cash"));
+upiBtn.addEventListener('click', () => completePurchase("UPI"));
+cardBtn.addEventListener('click', () => completePurchase("Card"));
+netbankingBtn.addEventListener('click', () => completePurchase("Net Banking"));
+</script>
+
+</body>
+</html>
